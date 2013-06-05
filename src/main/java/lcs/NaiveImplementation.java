@@ -1,5 +1,7 @@
 package lcs;
 
+import org.apache.commons.lang3.text.suffixtree.Utils;
+
 import java.util.*;
 
 public class NaiveImplementation {
@@ -15,7 +17,7 @@ public class NaiveImplementation {
 
         List<String> commonSubstrings = new ArrayList<String>();
         String firstString = inputStrings.get(0);
-        Collection<String> firstStringSubstrings = generateSubstrings(firstString);
+        Collection<String> firstStringSubstrings = generateSubstringsSortedByLenghtDesc(firstString);
         for (String substring : firstStringSubstrings) {
             if (!commonSubstrings.isEmpty() && commonSubstrings.get(0).length() > substring.length())
             {
@@ -43,23 +45,15 @@ public class NaiveImplementation {
      * @param inputString input string
      * @return collection of all substrings in descending order according to length of each string
      */
-    private static Collection<String> generateSubstrings(String inputString) {
-        List<String> substrings = new ArrayList<String>();
-
-        if (inputString.isEmpty())
-            return substrings;
-
-        for (int inputStringIndex = 0; inputStringIndex < inputString.length(); inputStringIndex++) {
-            for (int restOfStringIndex = inputStringIndex + 1; restOfStringIndex <= inputString.length(); restOfStringIndex++) {
-                substrings.add(inputString.substring(inputStringIndex, restOfStringIndex));
-            }
-        }
+    private static Collection<String> generateSubstringsSortedByLenghtDesc(String inputString) {
+        List<String> substrings = new ArrayList<String>(Utils.getSubstrings(inputString));
 
         Collections.sort(substrings, new Comparator<String>() {
             public int compare(String o1, String o2) {
                 return o2.length() - o1.length();
             }
         });
+
         return substrings;
     }
 }

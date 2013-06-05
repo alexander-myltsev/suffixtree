@@ -14,7 +14,7 @@ public class Main {
             generalizedSuffixTree.addSequence(inputString);
         }
 
-        // Самых длинных подстрок одинаковой длины может быть несколько
+        // NOTE: There might be many longest common substrings of equal size
         for (String longestCommonSubstring : generalizedSuffixTree.lcs()) {
             System.out.println(longestCommonSubstring);
         }
@@ -26,16 +26,23 @@ public class Main {
         inputStrings.add("mycabarcxxxhive");
         inputStrings.add("acabistruxxxe");
 
-        for (String s : new TreeSet<String>(NaiveImplementation.lcs(inputStrings))) {
-            System.out.println(s);
+        System.out.println("-----> naive");
+        Set<String> lcsNaive = new HashSet<String>(NaiveImplementation.lcs(inputStrings));
+        for (String longestCommonSubstring : lcsNaive) {
+            System.out.println(longestCommonSubstring);
         }
 
+        System.out.println("-----> suffix tree");
         GeneralizedSuffixTree generalizedSuffixTree = new GeneralizedSuffixTree();
         for (String inputString : inputStrings) {
             generalizedSuffixTree.addSequence(inputString);
         }
-        for (String longestCommonSubstring : new TreeSet<String>(generalizedSuffixTree.lcs())) {
+
+        Set<String> lcsSuffixTree = new HashSet<String>(generalizedSuffixTree.lcs());
+        for (String longestCommonSubstring : lcsSuffixTree) {
             System.out.println(longestCommonSubstring);
         }
+
+        System.out.println("-----> sets equal: " + lcsNaive.equals(lcsSuffixTree));
     }
 }
