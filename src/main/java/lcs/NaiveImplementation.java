@@ -19,8 +19,7 @@ public class NaiveImplementation {
         String firstString = inputStrings.get(0);
         Collection<String> firstStringSubstrings = generateSubstringsSortedByLenghtDesc(firstString);
         for (String substring : firstStringSubstrings) {
-            if (!commonSubstrings.isEmpty() && commonSubstrings.get(0).length() > substring.length())
-            {
+            if (!commonSubstrings.isEmpty() && commonSubstrings.get(0).length() > substring.length()) {
                 break;
             }
 
@@ -32,8 +31,9 @@ public class NaiveImplementation {
                     break;
                 }
             }
-            if (isSubstringOfAllInputStrings)
+            if (isSubstringOfAllInputStrings) {
                 commonSubstrings.add(substring);
+            }
         }
 
         return commonSubstrings;
