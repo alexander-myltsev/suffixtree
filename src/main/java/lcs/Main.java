@@ -2,8 +2,7 @@ package lcs;
 
 import org.apache.commons.lang3.text.suffixtree.GeneralizedSuffixTree;
 
-import java.util.Collection;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
     public static void main1(String... args) {
@@ -22,9 +21,21 @@ public class Main {
     }
 
     public static void main(String... args) {
-        Collection<String> stringCollection = NaiveImplementation.generateSubstrings("");
-        for (String s : stringCollection) {
+        List<String> inputStrings = new ArrayList<String>();
+        inputStrings.add("abxxxacaba");
+        inputStrings.add("mycabarcxxxhive");
+        inputStrings.add("acabistruxxxe");
+
+        for (String s : new TreeSet<String>(NaiveImplementation.lcs(inputStrings))) {
             System.out.println(s);
+        }
+
+        GeneralizedSuffixTree generalizedSuffixTree = new GeneralizedSuffixTree();
+        for (String inputString : inputStrings) {
+            generalizedSuffixTree.addSequence(inputString);
+        }
+        for (String longestCommonSubstring : new TreeSet<String>(generalizedSuffixTree.lcs())) {
+            System.out.println(longestCommonSubstring);
         }
     }
 }
